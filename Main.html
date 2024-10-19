@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VolunTiers</title>
+  <link rel="stylesheet" href="the css file for styling.css">
+</head>
+
+
+<body>
+
+  <header id="site-header">
+    <div id="site-name">VolunTiers</div>
+
+<ul>
+    <li><a href="default.asp">Home</a></li>
+    <li><a href="News.asp">News</a></li>
+    <li><a href="Events.asp">Events</a></li>
+    <li><a href="Ranking.asp">Rank</a></li>
+    <li><a href="AboutUs.asp">About</a></li>
+    <li><a href="ContactUs.asp">Contact</a></li>
+    <li><a href="Profile.asp">Profile</a></li>
+</ul>
+  </header>
+
+
+  <div id="login-register-container">
+    <h1>Welcome</h1>
+    <button id="login-button">Login</button>
+    <button id="register-button">Register</button>
+  </div>
+
+  <div id="login-form" style="display:none;">
+    <h2>Login</h2>
+    <input type="text" id="login-username" placeholder="Username"><br>
+    <input type="password" id="login-password" placeholder="Password"><br>
+    <button id="login-submit">Login</button>
+    <button id="back-button">Back</button>
+  </div>
+
+  <div id="register-form" style="display:none;">
+    <h2>Register</h2>
+    <input type="text" id="register-name" placeholder="Name"><br>
+    <input type="text" id="register-username" placeholder="Username"><br>
+    <input type="password" id="register-password" placeholder="Password"><br>
+    <button id="register-submit">Register</button>
+    <button id="back-button-reg">Back</button>
+  </div>
+
+  <div id="user-dashboard" style="display:none;">
+    <div id="user-info">
+      <img src="0b72efb9b23970d3b4831ca37ded057f.jpg" alt="Profile Picture" id="profile-picture" style="float:left;">
+      <p id="username-display"></p>
+      <p id="user-role"></p>
+    </div>
+
+    <div id="user-menu">
+      <button onclick="showSection('portfolio')">Portfolio (Jobs Taken)</button><br>
+      <button onclick="showSection('rewards')">My Rewards (From Rankings)</button><br>
+      <button onclick="showSection('personal-info')">Personal Info</button><br>
+      <button onclick="showSection('calendar')">Calendar</button><br>
+      <button onclick="showSection('tasks')">Tasks</button><br>
+      <button onclick="showSection('traits')">Traits/Tags</button><br>
+      <button onclick="showSection('contact-preference')">Contact Preference</button><br>
+      <button onclick="showSection('social-networks')">Social Networks</button><br>
+      <a href="contact.html">Need Help?</a><br>
+      <button onclick="logout()">Sign Out</button>
+    </div>
+    <div id="admin-section" style="display:none;">
+      <h3>Admin Section</h3>
+      <button onclick="showSection('events')">Events</button><br>
+      <button onclick="showSection('notices')">Notices</button><br>
+      <button onclick="showSection('banners')">Banners</button><br>
+      <button onclick="showSection('messages')">Messages</button><br>
+      <button onclick="showSection('users')">Users (Admin Privileges)</button>
+    </div>
+  </div>
+  </div>
+
+  <script src="the javascript for function.js"></script>
+</body>
+</html>
+
