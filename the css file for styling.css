@@ -1,4 +1,4 @@
-body {
+bbody {
     margin: 0;
     padding: 0;
     font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -31,28 +31,6 @@ body {
     color: white;
 }
 
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #00b300; 
-  top:0
-  left:20%
-
-}
-
-li {
-  float: left; 
-}
-
-li a {
-  display: block;
-  color: white; 
-  text-align: center;
-  padding: 20px 20px; 
-}
-
 
 #login-register-container {
     background: #fff;
@@ -73,7 +51,8 @@ padding: 15px 15px;
     font-size: 16px;
 }
 
-  
+
 #login-form, #register-form, #user-dashboard {
     display: none;
 }
+
