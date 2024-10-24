@@ -6,7 +6,7 @@
     background-color: #00b300;
     padding: 15px 20px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-start; /*space-between: Items display with equal spacing between them.*/
     align-items: center;
 }
 
@@ -36,6 +36,7 @@ li a {
   color: white; 
   text-align: center;
   padding: 20px 20px; 
+transition: background-color 0.3s; /*Smooth transition for hover effect*/
 }
 
 body {
@@ -82,7 +83,7 @@ front-weight: bold;
 }
 
 input, select{
-width: 100%;
+width: 100%; /* */
 padding: 10px;
 margin-bottom: 16px;
 box-sizing: border-box;
