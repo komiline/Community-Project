@@ -50,6 +50,12 @@
           <option value="no">No</option>
         </select>
 
+<!-- Comment Section -->
+<div class="comment-section">
+  <label for="comments">Additional Comments:</label>
+  <textarea name="comments" id="comments" placeholder="Leave any additional comments here" rows="4" cols="50"></textarea>
+</div>
+
 <!--Specialization Input -->
 <label for="specialization">Specializaton</label>
 <input type="text" name="specialization" id="specialization" placeholder="Archetect, Software Development" required>
@@ -76,6 +82,20 @@
 
 <label for="interests">Interests:</label>
   <input type="text" name="interests" id="interests" placeholder="e.g., Coding, Music" required>  
+
+   <!-- AI Job Matching -->
+        <label for="availability">Availability (hours per week):</label>
+        <input type="number" name="availability" id="availability" placeholder="e.g., 10" required>
+
+        <label for="job_type">Preferred Job Type:</label>
+        <select name="job_type" id="job_type" required>
+          <option value="remote">Remote</option>
+          <option value="in_person">In Person</option>
+          <option value="either">Either</option>
+        </select>
+
+        <label for="preferred_industry">Preferred Industry:</label>
+        <input type="text" name="preferred_industry" id="preferred_industry" placeholder="e.g., Healthcare, Education">
 <!--Specialization Input end here -->
 
 </div>
