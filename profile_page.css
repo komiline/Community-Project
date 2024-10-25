@@ -8,7 +8,7 @@
     display: flex;
     justify-content: flex-start; /*space-between: Items display with equal spacing between them.*/
     align-items: center;
-     z-index: 1000; /* Ensure the header stays on top */
+    z-index: 1000; /* Ensure the header stays on top */
 }
 
 #site-name {
@@ -37,7 +37,7 @@ li a {
   color: white; 
   text-align: center;
   padding: 20px 20px; 
-transition: background-color 0.3s; /*Smooth transition for hover effect*/
+  transition: background-color 0.3s; /*Smooth transition for hover effect*/
 }
 
 body {
