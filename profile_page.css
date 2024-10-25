@@ -8,6 +8,7 @@
     display: flex;
     justify-content: flex-start; /*space-between: Items display with equal spacing between them.*/
     align-items: center;
+     z-index: 1000; /* Ensure the header stays on top */
 }
 
 #site-name {
@@ -48,6 +49,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-top: 80px; /* the header kept cutting into the setup form so this fixes that */
 }
 
 .search-container {
