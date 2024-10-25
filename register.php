@@ -6,7 +6,7 @@ $password = ""; // Update if necessary
 $dbname = "job_matching";
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli("localhost", $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
