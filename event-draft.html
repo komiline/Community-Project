@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VolunTiers</title>
+</head>
+
+<body>
+
+  <header id="site-header">
+    <div id="site-name">VolunTiers</div>
+
+    <ul>
+      <li><a href="Home.html">Home</a></li>
+      <li><a href="News.asp">News</a></li>
+      <li><a href="Events.asp">Events</a></li>
+      <li><a href="Rank.html">Rank</a></li>
+      <li><a href="AboutUs.asp">About</a></li>
+      <li><a href="ContactUs.asp">Contact</a></li>
+      <li><a href="Profile.html">Profile</a></li>
+    </ul>
+
+   <div class="search-container">
+      <input type="text" name="search" id="search">
+      <button class="search-btn">Search</button>
+    </div>
+
+  </header>
+
+</body>
+
+<body>
+    
+    <div id="event-container">
+        <p>Create an Event or View an Event</p>
+        <button id="create-event">Create</button>
+        <!-- Insert php take the submitted info to database and store in database--> 
+
+        <button id="view-event">View</button>
+        <!-- Take info from database and display it--> 
+
+      </div>
+    
+     <div id="create-form" style="display:none;">
+             <form action="   .php" method="POST">  
+		<!-- make php code like the one for register to put info in table --> 
+     <h3>Create Event</h3>
+     <label for="event-name">Event Name:</label>
+     <input type="text" name="event-name" id="event-name" placeholder="e.g., Beach Clean-up, Build a house, etc">
+
+     <label for="event-date">Event Date:</label>
+     <input type="date" name="event-date" id="event-date" required>
+
+     <label for="duration">Event Duration:</label>
+     <input type="number" name="Duration" id="duartion" required>
+     
+     <label for="number-of-ppl">Max Persons:</label>
+     <input type="number" name="number-of-ppl" id="number-of-ppl" required>
+     
+     <label for="skills-required">Skills Required:</label>
+     <input type="text" name="skills-required" id="skills-required" required>
+     
+    <label for="level-needed">Specialization</label>
+    <select name="specialization" id="specialization" required>
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
+            <option value="Expert">Expert</option>
+    </select>
+
+      <label for="more-info">Additional Info:</label>
+      <input type="text" name="more-info" id="more-info" required>
+
+            <button type="submit">Submit</button>
+        </form>
+        <button id="back-button">Back</button>
+    </div>
+
+    <!-- view jobs available  --> 
+    <!-- make php code to take info from database and put in here--> 
+
+    <div id="event-display" style="display:none;">
+      <h4>Available Events</h4>
+      
+      <div id="event-list">
+          <p>Event details go here</p>
+          
+          <button id="accept-button">Accept</button>
+          <button id="decline-button">Decline</button>
+
+      </div>
+
+ <button id="back-button-2">Back</button>
+
+  </div>
+
+
+</body>
+
+
+
+<!--java--> 
+<script>
+  //Create Form
+  document.getElementById("create-event").addEventListener("click", function() {
+      document.getElementById("event-container").style.display = "none";
+      document.getElementById("create-form").style.display = "block";
+  });
+
+  // Show Event
+  document.getElementById("view-event").addEventListener("click", function() {
+      document.getElementById("event-container").style.display = "none";
+      document.getElementById("event-display").style.display = "block";
+  });
+
+  // Back Button
+  document.getElementById("back-button").addEventListener("click", function() {
+      document.getElementById("create-form").style.display = "none";
+      document.getElementById("event-container").style.display = "block";
+  });
+
+  document.getElementById("back-button-2").addEventListener("click", function() {
+      document.getElementById("event-display").style.display = "none";
+      document.getElementById("event-container").style.display = "block";
+  });
+
+
+  document.getElementById("accept-button").addEventListener("click", function() {
+    alert("Event accepted!");
+});
+
+document.getElementById("decline-button").addEventListener("click", function() {
+    alert("Event declined!");
+});
+
+</script>
+
+<style>
+ #site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #00b300;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: flex-start; /* or space-between */
+    align-items: center;
+    z-index: 1000; /* Ensure the header stays on top */
+}
+
+#site-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #00b300; 
+  top:0
+  left:20%
+
+}
+
+li {
+  float: left; 
+}
+
+li a {
+  display: block;
+  color: white; 
+  text-align: center;
+  padding: 20px 20px; 
+transition: background-color 0.3s; /*Smooth transition for hover effect*/
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f0f4f8;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 80px; /* Add padding equal to the header height */
+}
+
+.search-container {
+  margin-left: 850px; 
+  display: flex;
+  align-items: center;
+}
+
+#search {
+  padding: 8px; 
+  font-size: 16px;
+}
+
+.search-btn {
+  padding: 8px 15px; 
+  font-size: 16px;
+  cursor: pointer;
+  background-color:#f0f4f8;
+  color: black;
+  border: none;
+  margin-left: 10px; 
+}
+
+  form {
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 600px;
+    width: 100%;
+    margin-top: 20px;
+    background-color: white;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: bold;
+  }
+
+  input, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+</style>
