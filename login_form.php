@@ -26,12 +26,16 @@ $result = $conn->query("SELECT * FROM users WHERE username='$username'");
 if ($result->num_rows > 0) {
     $user = $result->fetch_assoc();
     if (password_verify($password, $user['password'])) {
-        echo json_encode(["status" => "success", "message" => "Login successful"]);
+            // Include role in the response
+        echo json_encode([
+            "status" => "success",
+            "message" => "Login successful",
+            "username" => $user['username'], // Include the username for display
+            "role" => $user['role']         // Include the role (e.g., 'admin' or 'user')
+        ]);
     } else {
         echo json_encode(["status" => "error", "message" => "Incorrect password"]);
     }
 } else {
     echo json_encode(["status" => "error", "message" => "User not found. Please register."]);
 }
-$conn->close();
-?>
