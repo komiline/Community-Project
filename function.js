@@ -49,12 +49,20 @@ document.getElementById('login-submit').onclick = function () {
                 document.getElementById('user-dashboard').style.display = 'block';
                 document.getElementById('username-display').innerText = `Username: ${data.username}`;
                 document.getElementById('user-role').innerText = `Role: ${data.role === 'admin' ? 'Admin' : 'Regular User'}`;
+                 // Show admin section if user is an admin
+                if (data.role === 'admin') {
+                    document.getElementById('admin-section').style.display = 'block';
+                } else {
+                    document.getElementById('admin-section').style.display = 'none';
+                }
             } else {
+                // Show error message
                 document.getElementById('login-error').textContent = data.message;
             }
         })
         .catch(error => console.error("Error:", error));
 };
+
 
 // Handle registration functionality with fetch to register_form.php
 // Register User
