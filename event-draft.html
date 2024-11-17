@@ -54,6 +54,12 @@
 
      <label for="duration">Event Duration:</label>
      <input type="number" name="Duration" id="duartion" required>
+
+	<label for="Level-Event">Level Event</label>
+	<select name="Level-Event" id="Level-Event" required>
+         <option value="Level-One">Level One</option>
+         <option value="Level-Two">Level Two</option>
+        </select>
      
      <label for="number-of-ppl">Max Persons:</label>
      <input type="number" name="number-of-ppl" id="number-of-ppl" required>
@@ -124,6 +130,65 @@
       document.getElementById("event-display").style.display = "none";
       document.getElementById("event-container").style.display = "block";
   });
+
+    // Handle event creation
+    document.querySelector("form").addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent form from reloading the page
+
+        const eventData = {
+            event_name: document.getElementById("event-name").value,
+            event_date: document.getElementById("event-date").value,
+            duration: document.getElementById("duartion").value,
+            max_persons: document.getElementById("number-of-ppl").value,
+            skills_required: document.getElementById("skills-required").value,
+            specialization: document.getElementById("specialization").value,
+            additional_info: document.getElementById("more-info").value
+        };
+
+        fetch("create_event.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(eventData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    alert("Event created successfully!");
+                    document.getElementById("create-form").style.display = "none";
+                    document.getElementById("event-container").style.display = "block";
+                } else {
+                    alert(data.message || "Failed to create event.");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+    });
+
+    document.getElementById("view-event").addEventListener("click", function () {
+        fetch("view_events.php")
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    const eventList = document.getElementById("event-list");
+                    eventList.innerHTML = ""; // Clear previous events
+                    data.events.forEach(event => {
+                        const eventItem = document.createElement("div");
+                        eventItem.innerHTML = `
+                    <h5>${event.event_name}</h5>
+                    <p>Date: ${event.event_date}</p>
+                    <p>Duration: ${event.duration} hours</p>
+                    <p>Max Persons: ${event.max_persons}</p>
+                    <p>Skills Required: ${event.skills_required}</p>
+                    <p>Specialization: ${event.specialization}</p>
+                    <p>Additional Info: ${event.additional_info}</p>
+                `;
+                        eventList.appendChild(eventItem);
+                    });
+                } else {
+                    alert(data.message || "Failed to load events.");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+    });
 
 
   document.getElementById("accept-button").addEventListener("click", function() {
