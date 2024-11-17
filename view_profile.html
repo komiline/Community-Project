@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Profiles</title>
+    <style>
+        /* Add the CSS you provided here */
+        #site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #00b300;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        #site-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #00b300;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 20px 20px;
+            transition: background-color 0.3s;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f0f4f8;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        .profile-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .profile {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .profile:last-child {
+            border-bottom: none;
+        }
+
+        .profile h3 {
+            margin: 0;
+            color: #00b300;
+        }
+
+        .profile p {
+            margin: 5px 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="site-header">
+        <div id="site-name">Community Service</div>
+    </header>
+
+    <!-- Profiles List -->
+    <div class="profile-container" id="profileList">
+        <!-- Profiles will be dynamically inserted here -->
+    </div>
+
+    <script>
+        // Fetch and display profiles
+        function fetchProfiles() {
+            fetch("view-profile.php")
+                .then(response => response.json())
+                .then(data => {
+                    const profileList = document.getElementById("profileList");
+                    if (data.status === "success") {
+                        const profiles = data.profiles;
+                        let html = "";
+                        profiles.forEach(profile => {
+                            html += `
+                                <div class="profile">
+                                    <h3>${profile.name}</h3>
+                                    <p><strong>Email:</strong> ${profile.email}</p>
+                                    <p><strong>Specialization:</strong> ${profile.specialization}</p>
+                                    <p><strong>Skill Level:</strong> ${profile.skill_level}</p>
+                                    <p><strong>Interests:</strong> ${profile.interests}</p>
+                                </div>
+                            `;
+                        });
+                        profileList.innerHTML = html;
+                    } else {
+                        profileList.innerHTML = `<p>Error fetching profiles: ${data.message}</p>`;
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching profiles:", error);
+                    document.getElementById("profileList").innerHTML = `<p>Error loading profiles.</p>`;
+                });
+        }
+
+        // Load profiles on page load
+        fetchProfiles();
+    </script>
+</body>
+</html>
