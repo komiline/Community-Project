@@ -19,6 +19,8 @@
       <li><a href="AboutUs.asp">About</a></li>
       <li><a href="ContactUs.asp">Contact</a></li>
       <li><a href="Profile.html">Profile</a></li>
+      <li><a href="logout.php" class="logout-btn">Logout</a></li>
+</ul>
     </ul>
 
    <div class="search-container">
@@ -256,27 +258,21 @@ body {
     padding-top: 80px; /* Add padding equal to the header height */
 }
 
-.search-container {
-  margin-left: 850px; 
-  display: flex;
-  align-items: center;
+.logout-btn {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 10px 20px;
+  background-color: red; 
+  text-decoration: none;
+  border-radius: 5px;
+margin-left: 1050px; 
+  transition: background-color 0.3s;
 }
 
-#search {
-  padding: 8px; 
-  font-size: 16px;
+.logout-btn:hover {
+  background-color: darkred;
 }
-
-.search-btn {
-  padding: 8px 15px; 
-  font-size: 16px;
-  cursor: pointer;
-  background-color:#f0f4f8;
-  color: black;
-  border: none;
-  margin-left: 10px; 
-}
-
   form {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
