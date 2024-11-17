@@ -52,26 +52,20 @@ body {
     padding-top: 80px; /* the header kept cutting into the setup form so this fixes that */
 }
 
-.search-container {
-  margin-left: 850px; 
-  display: flex;
-  align-items: center;
+.logout-btn {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 10px 20px;
+  background-color: red; 
+  text-decoration: none;
+  border-radius: 5px;
+margin-left: 1050px; 
+  transition: background-color 0.3s;
 }
 
-#search {
-  padding: 8px; 
-  font-size: 16px;
-}
-
-.search-btn {
-  padding: 8px 15px; 
-  font-size: 16px;
-  cursor: pointer;
-  background-color:#f0f4f8;
-  color: black;
-  border: none;
-  margin-left: 10px; 
-}
+.logout-btn:hover {
+  background-color: darkred;
 
 form {
    border-radius: 8px;
