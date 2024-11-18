@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VolunTiers - Leaderboard</title>
+</head>
+<body>
+  <header id="site-header">
+    <div id="site-name">VolunTiers</div>
+    <ul>
+      <li><a href="Home.html">Home</a></li>
+      <li><a href="News.asp">News</a></li>
+      <li><a href="event-draft.html">Events</a></li>
+      <li><a href="rank-draft.html">Rank</a></li>
+      <li><a href="AboutUs.asp">About</a></li>
+      <li><a href="ContactUs.asp">Contact</a></li>
+      <li><a href="Profile.html">Profile</a></li>
+      <li><a href="logout.php" class="logout-btn">Logout</a></li>
+    </ul>
+  </header>
+
+  <div id="rank-section">
+    <h2>User Leaderboard</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Username</th>
+          <th>Points</th>
+        </tr>
+      </thead>
+      <tbody id="leaderboard-body">
+          <!-- Data will be loaded here by JavaScript -->
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
+
+<script>
+    // Fetch leaderboard data from rank.php
+    fetch('rank.php')
+      .then(response => response.json())
+      .then(data => {
+        const tbody = document.getElementById('leaderboard-body');
+        tbody.innerHTML = '';
+
+        data.forEach(user => {
+          const row = document.createElement('tr');
+          row.innerHTML = `<td>${user.rank}</td><td>${user.username}</td><td>${user.points}</td>`;
+          tbody.appendChild(row);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching leaderboard data:', error);
+        const tbody = document.getElementById('leaderboard-body');
+        tbody.innerHTML = '<tr><td colspan="3">Error loading data</td></tr>';
+      });
+  </script>
+
+<style>
+ #site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #00b300;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: flex-start; /* or space-between */
+    align-items: center;
+    z-index: 1000; /* Ensure the header stays on top */
+}
+
+#site-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #00b300; 
+  top:0
+  left:20%
+
+}
+
+li {
+  float: left; 
+}
+
+li a {
+  display: block;
+  color: white; 
+  text-align: center;
+  padding: 20px 20px; 
+transition: background-color 0.3s; /*Smooth transition for hover effect*/
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f0f4f8;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 80px; /* Add padding equal to the header height */
+}
+
+.search-container {
+  margin-left: 850px; 
+  display: flex;
+  align-items: center;
+}
+
+#search {
+  padding: 8px; 
+  font-size: 16px;
+}
+
+.search-btn {
+  padding: 8px 15px; 
+  font-size: 16px;
+  cursor: pointer;
+  background-color:#f0f4f8;
+  color: black;
+  border: none;
+  margin-left: 10px; 
+}
+  #leaderboard-section {
+      padding: 20px;
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #00b300;
+      color: white;
+    }
+</style>
+
+</body>
+</html>
