@@ -17,32 +17,51 @@ if ($conn->connect_error) {
     exit;
 }
 
-if (isset($_GET['action']) && isset($_GET['event_id']) && isset($_GET['user_id'])) {
-    $event_id = (int)$_GET['event_id'];
+if (isset($_GET['action']) && isset($_GET['id']) && isset($_GET['user_id'])) {
+    $event_id = (int)$_GET['id'];
     $user_id = (int)$_GET['user_id'];
     $action = $_GET['action'];
 
-    if ($action === "accept") {
-        $points_to_add = 100; // Default for level 1; modify if levels are defined in your database
+    // Debug output
+    error_log("action: $action, id: $event_id, user_id: $user_id");
 
-        // Optional: Fetch event level to set points accordingly if levels vary
+
+    if ($action === "accept") {
+        $points_to_add = 100; // Default points for level 1 events
+
+        // Fetch event level to determine points
         $event_result = $conn->query("SELECT level FROM events WHERE id = $event_id");
-        if ($event_result->num_rows > 0) {
+        if ($event_result && $event_result->num_rows > 0) {
             $event_data = $event_result->fetch_assoc();
             $points_to_add = ($event_data['level'] == 2) ? 500 : 100;
         }
 
-        $conn->query("UPDATE users SET points = points + $points_to_add WHERE id = $user_id");
-        $conn->query("UPDATE events SET status = 'accepted' WHERE id = $event_id");
+        // Update user points in the `user_points` table
+        $update_points = $conn->query("INSERT INTO user_points (user_id, points) 
+                                       VALUES ($user_id, $points_to_add) 
+                                       ON DUPLICATE KEY UPDATE points = points + $points_to_add");
 
-        echo json_encode(["status" => "success", "message" => "Points added"]);
+        // Update event status
+        $update_event = $conn->query("UPDATE events SET status = 'accepted' WHERE id = $event_id");
+
+        if ($update_points && $update_event) {
+            echo json_encode(["status" => "success", "message" => "Points added and event accepted"]);
+        } else {
+            echo json_encode(["status" => "error", "message" => "Error updating database"]);
+        }
     } elseif ($action === "decline") {
-        $conn->query("UPDATE events SET status = 'declined' WHERE id = $event_id");
-        echo json_encode(["status" => "success", "message" => "Event declined"]);
+        $update_event = $conn->query("UPDATE events SET status = 'declined' WHERE id = $event_id");
+
+        if ($update_event) {
+            echo json_encode(["status" => "success", "message" => "Event declined"]);
+        } else {
+            echo json_encode(["status" => "error", "message" => "Error updating database"]);
+        }
     } else {
         echo json_encode(["status" => "error", "message" => "Invalid action"]);
     }
 } else {
+    error_log("Invalid parameters: " . json_encode($_GET)); // Debug missing parameters
     echo json_encode(["status" => "error", "message" => "Invalid parameters"]);
 }
 
