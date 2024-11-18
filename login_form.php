@@ -26,10 +26,11 @@ $result = $conn->query("SELECT * FROM users WHERE username='$username'");
 if ($result->num_rows > 0) {
     $user = $result->fetch_assoc();
     if (password_verify($password, $user['password'])) {
-            // Include role in the response
+     // Include role in the response
         echo json_encode([
             "status" => "success",
             "message" => "Login successful",
+            "user_id" => $user['user_id'],
             "username" => $user['username'], // Include the username for display
             "role" => $user['role']         // Include the role (e.g., 'admin' or 'user')
         ]);
