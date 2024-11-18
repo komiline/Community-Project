@@ -14,13 +14,12 @@
     <ul>
       <li><a href="Home.html">Home</a></li>
       <li><a href="News.asp">News</a></li>
-      <li><a href="Events.asp">Events</a></li>
-      <li><a href="Rank.html">Rank</a></li>
+      <li><a href="event-draft.html">Events</a></li>
+      <li><a href="rank-draft.html">Rank</a></li>
       <li><a href="AboutUs.asp">About</a></li>
       <li><a href="ContactUs.asp">Contact</a></li>
       <li><a href="Profile.html">Profile</a></li>
       <li><a href="logout.php" class="logout-btn">Logout</a></li>
-</ul>
     </ul>
 
   </header>
@@ -40,45 +39,45 @@
       </div>
     
      <div id="create-form" style="display:none;">
-             <form action="   .php" method="POST">  
-		<!-- make php code like the one for register to put info in table --> 
-     <h3>Create Event</h3>
-     <label for="event-name">Event Name:</label>
-     <input type="text" name="event-name" id="event-name" placeholder="e.g., Beach Clean-up, Build a house, etc">
+  <form action="create_event.php" method="POST">  
+    <h3>Create Event</h3>
+    <label for="event-name">Event Name:</label>
+    <input type="text" name="event-name" id="event-name" placeholder="e.g., Beach Clean-up, Build a house, etc">
 
-     <label for="event-date">Event Date:</label>
-     <input type="date" name="event-date" id="event-date" required>
+    <label for="event-date">Event Date:</label>
+    <input type="date" name="event-date" id="event-date" required>
 
-     <label for="duration">Event Duration:</label>
-     <input type="number" name="Duration" id="duartion" required>
+    <label for="duration">Event Duration:</label>
+    <input type="number" name="duration" id="duration" required>
 
-	<label for="Level-Event">Level Event</label>
-	<select name="Level-Event" id="Level-Event" required>
-         <option value="Level-One">Level One</option>
-         <option value="Level-Two">Level Two</option>
-        </select>
-     
-     <label for="number-of-ppl">Max Persons:</label>
-     <input type="number" name="number-of-ppl" id="number-of-ppl" required>
-     
-     <label for="skills-required">Skills Required:</label>
-     <input type="text" name="skills-required" id="skills-required" required>
-     
-    <label for="level-needed">Specialization</label>
-    <select name="specialization" id="specialization" required>
-            <option value="Beginner">Beginner</option>
-            <option value="Intermediate">Intermediate</option>
-            <option value="Advanced">Advanced</option>
-            <option value="Expert">Expert</option>
+    <label for="level">Level Event</label>
+    <select name="level" id="level" required>
+        <option value="1">Level One</option>
+        <option value="2">Level Two</option>
     </select>
 
-      <label for="more-info">Additional Info:</label>
-      <input type="text" name="more-info" id="more-info" required>
+    <label for="number-of-ppl">Max Persons:</label>
+    <input type="number" name="number-of-ppl" id="number-of-ppl" required>
 
-            <button type="submit">Submit</button>
-        </form>
-        <button id="back-button">Back</button>
-    </div>
+    <label for="skills-required">Skills Required:</label>
+    <input type="text" name="skills-required" id="skills-required" required>
+
+    <label for="specialization">Specialization</label>
+    <select name="specialization" id="specialization" required>
+        <option value="Beginner">Beginner</option>
+        <option value="Intermediate">Intermediate</option>
+        <option value="Advanced">Advanced</option>
+        <option value="Expert">Expert</option>
+    </select>
+
+    <label for="more-info">Additional Info:</label>
+    <input type="text" name="more-info" id="more-info" required>
+
+    <button type="submit">Submit</button>
+  </form>
+  <button id="back-button">Back</button>
+</div>
+
 
     <!-- view jobs available  --> 
     <!-- make php code to take info from database and put in here--> 
@@ -135,10 +134,11 @@
         const eventData = {
             event_name: document.getElementById("event-name").value,
             event_date: document.getElementById("event-date").value,
-            duration: document.getElementById("duartion").value,
+            duration: document.getElementById("duration").value,
             max_persons: document.getElementById("number-of-ppl").value,
             skills_required: document.getElementById("skills-required").value,
             specialization: document.getElementById("specialization").value,
+            level: document.getElementById("level").value,
             additional_info: document.getElementById("more-info").value
         };
 
@@ -170,22 +170,68 @@
                     data.events.forEach(event => {
                         const eventItem = document.createElement("div");
                         eventItem.innerHTML = `
-                    <h5>${event.event_name}</h5>
-                    <p>Date: ${event.event_date}</p>
-                    <p>Duration: ${event.duration} hours</p>
-                    <p>Max Persons: ${event.max_persons}</p>
-                    <p>Skills Required: ${event.skills_required}</p>
-                    <p>Specialization: ${event.specialization}</p>
-                    <p>Additional Info: ${event.additional_info}</p>
-                `;
+                            <h5>${event.event_name}</h5>
+                            <p>Date: ${event.event_date}</p>
+                            <p>Duration: ${event.duration} hours</p>
+                            <p>Max Persons: ${event.max_persons}</p>
+                            <p>Skills Required: ${event.skills_required}</p>
+                            <p>Specialization: ${event.specialization}</p>
+                            <p>Level: ${event.level === '2' ? 'Level Two' : 'Level One'}</p>
+                            <p>Additional Info: ${event.additional_info}</p>
+                            <button class="accept-button" data-event-id="${event.id}">Accept</button>
+                            <button class="decline-button" data-event-id="${event.id}">Decline</button>
+    `;
                         eventList.appendChild(eventItem);
                     });
+
+                    document.querySelectorAll(".accept-button").forEach(button => {
+                        button.addEventListener("click", function () {
+                            const eventId = this.getAttribute("data-event-id");
+                            handleEventAction("accept", eventId);
+                        });
+                    });
+
+                    document.querySelectorAll(".decline-button").forEach(button => {
+                        button.addEventListener("click", function () {
+                            const eventId = this.getAttribute("data-event-id");
+                            handleEventAction("decline", eventId);
+                        });
+                    });
+
                 } else {
                     alert(data.message || "Failed to load events.");
                 }
             })
             .catch(error => console.error("Error:", error));
     });
+
+    // Go back to the main menu from the event display
+    document.getElementById("back-button-2").addEventListener("click", function () {
+        document.getElementById("event-display").style.display = "none";
+        document.getElementById("event-container").style.display = "block";
+    });
+
+    // Handle event actions (accept/decline)
+    function handleEventAction(action, eventId) {
+        const userId = sessionStorage.getItem("user_id"); // Retrieve logged-in user's ID
+        //console.log("User ID:", userId); // This should output the correct user ID
+
+        if (!userId) {
+            alert("You must be logged in to perform this action.");
+            return;
+        }
+
+        fetch(`update.php?action=${action}&id=${eventId}&user_id=${userId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    alert(data.message);
+                } else {
+                    alert(data.message || "Action failed.");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+    }
 
 
   document.getElementById("accept-button").addEventListener("click", function() {
@@ -253,21 +299,27 @@ body {
     padding-top: 80px; /* Add padding equal to the header height */
 }
 
-.logout-btn {
-  display: inline-block;
-  color: white;
-  text-align: center;
-  padding: 10px 20px;
-  background-color: red; 
-  text-decoration: none;
-  border-radius: 5px;
-margin-left: 1050px; 
-  transition: background-color 0.3s;
+.search-container {
+  margin-left: 850px; 
+  display: flex;
+  align-items: center;
 }
 
-.logout-btn:hover {
-  background-color: darkred;
+#search {
+  padding: 8px; 
+  font-size: 16px;
 }
+
+.search-btn {
+  padding: 8px 15px; 
+  font-size: 16px;
+  cursor: pointer;
+  background-color:#f0f4f8;
+  color: black;
+  border: none;
+  margin-left: 10px; 
+}
+
   form {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
