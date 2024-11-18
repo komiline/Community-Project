@@ -45,11 +45,13 @@ document.getElementById('login-submit').onclick = function () {
         .then(response => response.json().catch(() => ({ status: "error", message: "Invalid JSON response from login_form.php" })))
         .then(data => {
             if (data.status === "success") {
+                // Store user ID in session storage
+                sessionStorage.setItem("user_id", data.user_id);
                 document.getElementById('login-form').style.display = 'none';
                 document.getElementById('user-dashboard').style.display = 'block';
                 document.getElementById('username-display').innerText = `Username: ${data.username}`;
                 document.getElementById('user-role').innerText = `Role: ${data.role === 'admin' ? 'Admin' : 'Regular User'}`;
-                 // Show admin section if user is an admin
+                // Show admin section if user is an admin
                 if (data.role === 'admin') {
                     document.getElementById('admin-section').style.display = 'block';
                 } else {
@@ -62,7 +64,6 @@ document.getElementById('login-submit').onclick = function () {
         })
         .catch(error => console.error("Error:", error));
 };
-
 
 // Handle registration functionality with fetch to register_form.php
 // Register User
@@ -93,4 +94,6 @@ document.getElementById('register-submit').onclick = function () {
         alert("Please fill in all fields.");
     }
 };
+
+
 
