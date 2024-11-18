@@ -3,38 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VolunTiers</title>
+  <title>VolunTiers - Profile</title>
   <link rel="stylesheet" href="profile_page.css">
 </head>
 
 <body>
-
   <header id="site-header">
     <div id="site-name">VolunTiers</div>
-
     <ul>
       <li><a href="Home.html">Home</a></li>
       <li><a href="News.asp">News</a></li>
-      <li><a href="Events.asp">Events</a></li>
-      <li><a href="Ranking.asp">Rank</a></li>
+      <li><a href="event-draft.html">Events</a></li>
+      <li><a href="rank-draft.html">Rank</a></li>
       <li><a href="AboutUs.asp">About</a></li>
       <li><a href="ContactUs.asp">Contact</a></li>
-      <li><a href="view_profile.html">Profile</a></li>
+      <li><a href="Profile.html">Profile</a></li>
       <li><a href="logout.php" class="logout-btn">Logout</a></li>
     </ul>
-
   </header>
 
-<!-- Form to capture the profile details -->
   <div class="form-container">
-    <form action="" id="profileForm">
+    <form id="profileForm" enctype="multipart/form-data">
+      <!-- Left Column -->
       <div class="column-left">
-<!-- Adding attributes to submit data to PHP file.. I think -->
         <label for="name">Name:</label>
-        <input type="text" name="name" id="name" required>
+        <input type="text" name="name" id="name" placeholder="e.g., John Doe" required>
 
         <label for="email">Email:</label>
-        <input type="email" name="email" id="email" required>
+        <input type="email" name="email" id="email" placeholder="e.g., johndoe@example.com" required>
 
         <label for="gender">Gender:</label>
         <select name="gender" id="gender" required>
@@ -44,7 +40,7 @@
         </select>
 
         <label for="age">Age:</label>
-        <input type="number" name="age" id="age" required>
+        <input type="number" name="age" id="age" placeholder="e.g., 25" required>
 
         <label for="handicap">Handicap:</label>
         <select name="handicap" id="handicap" required>
@@ -52,40 +48,35 @@
           <option value="no">No</option>
         </select>
 
-<!-- Comment Section -->
-<div class="comment-section">
-  <label for="comments">Additional Comments:</label>
-  <textarea name="comments" id="comments" placeholder="Leave any additional comments here" rows="4" cols="50"></textarea>
-</div>
+        <label for="specialization">Specialization:</label>
+        <input type="text" name="specialization" id="specialization" placeholder="e.g., Software Development" required>
 
-<!--Specialization Input -->
-<label for="specialization">Specializaton</label>
-<input type="text" name="specialization" id="specialization" placeholder="Archetect, Software Development" required>
+        <label for="skill_level">Skill Level:</label>
+        <select name="skill_level" id="skill_level" required>
+          <option value="Beginner">Beginner</option>
+          <option value="Intermediate">Intermediate</option>
+          <option value="Advanced">Advanced</option>
+          <option value="Expert">Expert</option>
+        </select>
 
-<label for="Skill Level">Specialization</label>
-<select name="specialization" id="specialization" required>
-        <option value="Beginner">Beginner</option>
-        <option value="Intermediate">Intermediate</option>
-        <option value="Advanced">Advanced</option>
-        <option value="Expert">Expert</option>
-<select/>
+        <label for="years_of_experience">Years of Experience:</label>
+        <input type="number" name="years_of_experience" id="years_of_experience" placeholder="e.g., 5" required>
 
-<label for="years_of_experience">Years of Experience</label>
-  <input type="number" name="years_of_experience" id="years_of_experience" placeholder=" Example:, 3 yrs " required>
+        <label for="personality_traits">Personality Traits:</label>
+        <input type="text" name="personality_traits" id="personality_traits" placeholder="e.g., Leadership, Team Player">
 
-<label for="personality_traits">Personality Traits</label>
-<input type="text" name="personality_traits" id="personality_traits" placeholder=" Example:, Leadership, Team Player" required>
+        <label for="language_proficiency">Language Proficiency:</label>
+        <input type="text" name="language_proficiency" id="language_proficiency" placeholder="e.g., English, Spanish">
 
-<label for="language_proficiency">Language Proficiency:</label>
-<input type="text" name="language_proficiency" id="language_proficiency" placeholder="e.g., Spanish, French">
+        <label for="certifications">Certifications:</label>
+        <input type="text" name="certifications" id="certifications" placeholder="e.g., PMP, AWS Certified">
+      </div>
 
-<label for="certifications">Certifications:</label>
-<input type="text" name="certifications" id="certifications" placeholder="e.g., CPR, PMP">
+      <!-- Right Column -->
+      <div class="column-right">
+        <label for="interests">Interests:</label>
+        <input type="text" name="interests" id="interests" placeholder="e.g., Coding, Music" required>
 
-<label for="interests">Interests:</label>
-  <input type="text" name="interests" id="interests" placeholder="e.g., Coding, Music" required>  
-
-   <!-- AI Job Matching -->
         <label for="availability">Availability (hours per week):</label>
         <input type="number" name="availability" id="availability" placeholder="e.g., 10" required>
 
@@ -97,43 +88,57 @@
         </select>
 
         <label for="preferred_industry">Preferred Industry:</label>
-        <input type="text" name="preferred_industry" id="preferred_industry" placeholder="e.g., Healthcare, Education">
-<!--Specialization Input end here -->
+        <input type="text" name="preferred_industry" id="preferred_industry" placeholder="e.g., IT, Healthcare">
 
-</div>
-
-      <div class="column-right">
         <label for="photo">Profile Picture:</label>
-        <input type="file" name="photo" id="photo" onchange="displayProfilePic()">
-        <img src="#" alt="Profile Picture" style="display:none;" id="profilePic">
+        <input type="file" name="photo" id="photo" accept="image/*">
 
         <label for="resume">Upload Resume:</label>
-        <input type="file" id="resume" name="myresume">
+        <input type="file" name="resume" id="resume" accept=".pdf,.doc,.docx">
 
-        <input type="submit" value="Submit">
+        <label for="comments">Additional Comments:</label>
+        <textarea name="comments" id="comments" placeholder="e.g., Open to part-time opportunities"></textarea>
+
+        <button type="submit">Submit</button>
       </div>
     </form>
   </div>
 
   <script>
-    function displayProfilePic() {
-      const input = document.getElementById('photo');
-      const img = document.getElementById('profilePic');
-      const reader = new FileReader();
+    document.getElementById("profileForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
 
-      reader.onload = function(e) {
-        img.src = e.target.result;
-        img.style.display = 'block';
-      };
+        // Retrieve user_id from sessionStorage
+        const userId = sessionStorage.getItem("user_id");
+        if (!userId) {
+            alert("You must be logged in to create a profile.");
+            return;
+        }
 
-      if (input.files && input.files[0]) {
-        reader.readAsDataURL(input.files[0]);
-      }
-    }
+        const form = document.getElementById("profileForm");
+        const formData = new FormData(form);
 
-    function submitForm() {
-      document.getElementById("profileForm").submit();
-    }
+        // Append user_id to the form data
+        formData.append("user_id", userId);
+
+        try {
+            const response = await fetch("create-profile.php", {
+                method: "POST",
+                body: formData, // Sending form data, including the user_id
+            });
+
+            const result = await response.json();
+            if (result.status === "success") {
+                alert("Profile created successfully!");
+                form.reset();
+            } else {
+                alert(result.message || "Failed to create profile.");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred. Please try again.");
+        }
+    });
   </script>
 </body>
 </html>
